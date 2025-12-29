@@ -1,117 +1,81 @@
-# BeyondChats Full-Stack AI Content Researcher
 
-This project is an end-to-end automated system designed to scrape blog content, perform autonomous competitor research using AI, and display the insights on a modern React dashboard.
 
-## 🌟 Key Features
-- **Phase 1 (Scraping):** Automated Node.js scraper to fetch blogs from BeyondChats and store them in Firebase via a Laravel API.
-- **Phase 2 (AI Research):** An autonomous Node.js agent that searches Google for competitors, scrapes their content, and uses **Groq (Llama-3.3-70b)** to rewrite articles with citations.
-- **Phase 3 (Dashboard):** A responsive React.js UI that allows users to compare original vs. AI-enhanced versions with a professional toggle and detail view.
+# BeyondChats AI Research & Content Hub
+
+An autonomous AI system designed to scrape blogs, perform deep competitor research using **Llama-3.3 (via Groq)**, and present a side-by-side comparison of original vs. AI-enhanced content.
 
 ---
 
-## 🏗️ Project Structure
-```text
-.
-├── ai-researcher/      # Node.js AI Agent (Groq LLM + Google Search)
-├── beyond-api/         # Laravel 11 Backend (API + Firebase Integration)
-├── blog-frontend/      # React.js Dashboard (Tailwind CSS + Lucide Icons)
-├── scraper.js          # Initial Web Scraper for Phase 1
-└── serviceAccountKey.json # Firebase Configuration
+## 🏗️ Architecture & Data Flow
+
+The system follows a 3-tier architecture with an integrated AI Research layer:
+
+1. **Ingestion Phase (Phase 1):** A Node.js scraper fetches the oldest 5 articles from BeyondChats and pushes them to the **Laravel API**.
+2. **Storage Layer:** Laravel manages the data flow and persists articles in a **Firebase Realtime Database**.
+3. **Research & Enrichment Phase (Phase 2):** * The Node.js script fetches original titles.
+* It performs a **Google Search** to find top-ranking competitor blogs.
+* It scrapes the competitor content and feeds it into the **Llama-3.3-70b LLM**.
+* The LLM rewrites the article for better formatting/depth and includes **auto-generated citations**.
 
 
-🛠️ Tech Stack
-Frontend: React.js, Tailwind CSS, Lucide React (Icons).
+4. **Presentation Phase (Phase 3):** A **React.js** dashboard fetches both versions and displays them in a responsive, side-by-side comparison UI.
 
-Backend: Laravel 11 (PHP), Firebase Realtime Database.
+---
 
-AI/LLM: Groq Cloud SDK (Llama-3.3-70b-versatile).
+## 🛠️ Local Setup Instructions
 
-Tools: Cheerio (Scraping), Google-it (Search API), Axios.
+### 1. Prerequisites
 
+* PHP 8.x & Composer (for Laravel)
+* Node.js & npm (for AI Agent & React)
+* Firebase Account
 
+### 2. Backend (Laravel API)
 
-
-🚀 Setup & Installation
-1. Prerequisites
-PHP 8.2+ & Composer
-
-Node.js 18+
-
-Firebase Project (Realtime Database)
-
-Groq API Key (Free tier available)
-
-
-
-
-Backend (Laravel) Setup
-Bash
-
+```bash
 cd beyond-api
 composer install
 cp .env.example .env
-# Update .env with Firebase credentials
+# Configure FIREBASE_DATABASE_URL in .env
 php artisan serve
-3. AI Researcher Setup
-Bash
 
+```
+
+### 3. AI Researcher (Node.js Agent)
+
+```bash
 cd ai-researcher
 npm install
-# Create a .env file with your GROQ_API_KEY and LARAVEL_API_URL
+# Add your GROQ_API_KEY in .env
 node researcher.js
-4. Frontend (React) Setup
-Bash
 
+```
+
+### 4. Frontend (React)
+
+```bash
 cd blog-frontend
 npm install
 npm start
-🤖 How the AI Agent Works
-Fetch: Retrieves original articles from the database via Laravel.
 
-Search: Uses google-it to find top 2-3 competitor articles for each topic.
+```
 
-Analyze: Scrapes competitor text and feeds it along with the original content into the Llama-3.3-70b model.
+---
 
-Optimize: Generates a new, professional version of the article including a "References" section for citations.
+## 🛡️ Features Implemented
 
-Update: Saves the enhanced version back to the database as a new entry linked to the original.
+* ✅ **Automated Scraping:** Fetches oldest 5 articles dynamically.
+* ✅ **Competitor Research:** Programmatic Google Search for top 2 ranking articles.
+* ✅ **AI Content Enhancement:** Llama-3-70b model used for rewriting.
+* ✅ **Auto-Citations:** Automatic reference links added to enhanced articles.
+* ✅ **Professional UI:** Responsive React dashboard with original/enhanced toggle.
+* ✅ **Real-time Sync:** Powered by Firebase.
 
+---
 
+## 👨‍💻 Submission By
 
+**Aditya Singh** *Full Stack Web Developer Intern Applicant*
 
-
-
-
-
-
-
-
-👨‍💻 Author
-Aditya - Full Stack Developer / AI Enthusiast
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
