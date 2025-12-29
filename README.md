@@ -2,56 +2,69 @@
 
 # BeyondChats AI Research & Content Hub
 
-An autonomous AI system designed to scrape blogs, perform deep competitor research using **Llama-3.3 (via Groq)**, and present a side-by-side comparison of original vs. AI-enhanced content.
+An autonomous AI system that scrapes blogs, performs deep competitor research using **Llama-3.3 (via Groq)**, and displays a comparison of original vs. AI-enhanced content in a professional dashboard.
 
 ---
 
-## 🏗️ Architecture & Data Flow
+##  Project Architecture & Data Flow
 
-The system follows a 3-tier architecture with an integrated AI Research layer:
-
-1. **Ingestion Phase (Phase 1):** A Node.js scraper fetches the oldest 5 articles from BeyondChats and pushes them to the **Laravel API**.
-2. **Storage Layer:** Laravel manages the data flow and persists articles in a **Firebase Realtime Database**.
-3. **Research & Enrichment Phase (Phase 2):** * The Node.js script fetches original titles.
-* It performs a **Google Search** to find top-ranking competitor blogs.
-* It scrapes the competitor content and feeds it into the **Llama-3.3-70b LLM**.
-* The LLM rewrites the article for better formatting/depth and includes **auto-generated citations**.
-
-
-4. **Presentation Phase (Phase 3):** A **React.js** dashboard fetches both versions and displays them in a responsive, side-by-side comparison UI.
+1. **Phase 1 (Ingestion):** `scraper.js` (Node.js) fetches the 5 oldest articles from BeyondChats and sends them to the Laravel CRUD API.
+2. **Database:** **Laravel** acts as the bridge, storing all data in **Firebase Realtime Database**.
+3. **Phase 2 (AI Enrichment):** `researcher.js` (Node.js) fetches the titles, finds top-ranking competitor blogs via Google, and uses **Llama-3.3-70b** to rewrite the content with proper citations.
+4. **Phase 3 (Frontend):** A **React.js** dashboard (deployed on Vercel) displays the data in a responsive UI.
 
 ---
 
-## 🛠️ Local Setup Instructions
 
-### 1. Prerequisites
+* **GitHub Repository:** [https://github.com/adityasingh9b-dot/BeyondChats-AI-Research-System](https://www.google.com/search?q=https://github.com/adityasingh9b-dot/BeyondChats-AI-Research-System)
 
-* PHP 8.x & Composer (for Laravel)
-* Node.js & npm (for AI Agent & React)
-* Firebase Account
+---
 
-### 2. Backend (Laravel API)
+##  Local Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/adityasingh9b-dot/BeyondChats-AI-Research-System.git
+cd BeyondChats-AI-Research-System
+
+```
+
+### 2. Phase 1: Backend & Scraping
+
+**A. Setup Laravel API:**
 
 ```bash
 cd beyond-api
 composer install
-cp .env.example .env
-# Configure FIREBASE_DATABASE_URL in .env
+cp .env.example .env  # Configure your Firebase credentials here
 php artisan serve
 
 ```
 
-### 3. AI Researcher (Node.js Agent)
+**B. Run Scraper:**
 
 ```bash
-cd ai-researcher
+# In a new terminal (main folder)
+node scraper.js
+
+```
+
+*This will fetch the articles and store them in the database.*
+
+### 3. Phase 2: AI Research Script
+
+```bash
+# Inside the AI researcher folder
 npm install
-# Add your GROQ_API_KEY in .env
+# Ensure GROQ_API_KEY is in your .env
 node researcher.js
 
 ```
 
-### 4. Frontend (React)
+*This script will perform Google searches and update articles via LLM.*
+
+### 4. Phase 3: Frontend (React)
 
 ```bash
 cd blog-frontend
@@ -62,20 +75,18 @@ npm start
 
 ---
 
-## 🛡️ Features Implemented
+## 🛡️ Requirements Checklist (Phase-wise)
 
-* ✅ **Automated Scraping:** Fetches oldest 5 articles dynamically.
-* ✅ **Competitor Research:** Programmatic Google Search for top 2 ranking articles.
-* ✅ **AI Content Enhancement:** Llama-3-70b model used for rewriting.
-* ✅ **Auto-Citations:** Automatic reference links added to enhanced articles.
-* ✅ **Professional UI:** Responsive React dashboard with original/enhanced toggle.
-* ✅ **Real-time Sync:** Powered by Firebase.
+* **Phase 1 (Moderate):**  Scraped 5 oldest articles |  Firebase Integration | CRUD APIs.
+* **Phase 2 (Very Difficult):**  Google Search Integration |  Competitor Content Scraping |  Llama-3 LLM Implementation |  Automated Citations.
+* **Phase 3 (Very Easy):**  Responsive React UI |  Original vs Updated view |  Vercel Deployment.
 
 ---
 
-## 👨‍💻 Submission By
+##  Submission Details
 
-**Aditya Singh** *Full Stack Web Developer Intern Applicant*
+* **Candidate:** Aditya Singh
+* **Tech Stack:** Laravel, Node.js, React.js, Firebase, Llama-3 (Groq), Puppeteer/Cheerio.
 
 ---
 
